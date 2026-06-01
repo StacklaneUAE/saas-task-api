@@ -9,6 +9,9 @@ JSON request/response handling, and proper HTTP status codes.
 Built with Python's standard library only — no Flask, no installs —
 so it runs anywhere with `python app.py`.
 
+It also serves a single-page web UI (static/) from the same server, so the
+whole thing — API and frontend — runs with just `python app.py`.
+
 Endpoints:
     GET    /tasks          list all tasks
     POST   /tasks          create a task        body: {"title": "...", "done": false}
@@ -16,13 +19,21 @@ Endpoints:
     PUT    /tasks/<id>     update a task         body: {"title": "...", "done": true}
     DELETE /tasks/<id>     delete a task
     GET    /health         service health check
+    GET    /              the web UI (and its static assets)
 
 Author: StacklaneUAE
 """
 
 import json
+import mimetypes
+import os
+import threading
+import webbrowser
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse
+
+# directory holding the frontend (index.html, styles.css, app.js)
+STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
 
 # ---- simple in-memory "database" -------------------------------------------
 TASKS = {}
@@ -61,6 +72,34 @@ class Handler(BaseHTTPRequestHandler):
         except json.JSONDecodeError:
             return None
 
+    def _serve_static(self, path):
+        # "/" -> marketing landing page, "/app" -> the task manager UI,
+        # anything else -> that file from static/ (e.g. /styles.css, /app.js)
+        if path in ("", "/"):
+            rel = "landing.html"
+        elif path in ("/app", "/app/"):
+            rel = "index.html"
+        else:
+            rel = path.lstrip("/")
+        # resolve safely inside STATIC_DIR — block any path traversal
+        full = os.path.normpath(os.path.join(STATIC_DIR, rel))
+        try:
+            inside = os.path.commonpath([STATIC_DIR, full]) == STATIC_DIR
+        except ValueError:
+            # different drive (e.g. a crafted "C:/..." path on Windows)
+            inside = False
+        if not inside or not os.path.isfile(full):
+            return self._send(404, {"error": "Not found"})
+
+        ctype = mimetypes.guess_type(full)[0] or "application/octet-stream"
+        with open(full, "rb") as f:
+            body = f.read()
+        self.send_response(200)
+        self.send_header("Content-Type", ctype)
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def _task_id(self, path):
         parts = path.strip("/").split("/")
         if len(parts) == 2 and parts[0] == "tasks":
@@ -86,7 +125,8 @@ class Handler(BaseHTTPRequestHandler):
             if task:
                 return self._send(200, task)
             return self._send(404, {"error": f"Task {tid} not found"})
-        return self._send(404, {"error": "Unknown endpoint"})
+        # not an API route — try serving the web UI / static assets
+        return self._serve_static(path)
 
     def do_POST(self):
         if urlparse(self.path).path != "/tasks":
@@ -126,10 +166,15 @@ class Handler(BaseHTTPRequestHandler):
         return self._send(404, {"error": f"Task {tid} not found"})
 
 
-def run(port=8000):
+def run(port=8000, open_browser=True):
     server = HTTPServer(("", port), Handler)
-    print(f"Task Manager API running on http://localhost:{port}")
-    print("Try:  curl http://localhost:8000/tasks")
+    url = f"http://localhost:{port}"
+    print(f"Task Manager running on {url}")
+    print(f"  Web UI:  {url}/")
+    print(f"  API:     {url}/tasks")
+    if open_browser:
+        # open the UI shortly after the server starts accepting connections
+        threading.Timer(0.6, lambda: webbrowser.open(url)).start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:

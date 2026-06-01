@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow — Task Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/styles.css" />
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>"
+  />
+</head>
+<body>
+  <!-- animated background -->
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb--1"></span>
+    <span class="orb orb--2"></span>
+    <span class="orb orb--3"></span>
+  </div>
+  <!-- confetti layer -->
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <a class="brand__logo" href="/" title="Back to home">✓</a>
+        <div>
+          <h1 class="brand__title">TaskFlow</h1>
+          <p class="brand__subtitle">Stay on top of your day</p>
+        </div>
+        <a class="home-link" href="/" title="Back to landing page">
+          <span>←</span> Home
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <section class="stats" aria-label="Task statistics">
+        <div class="stat-cards">
+          <div class="stat">
+            <span class="stat__value" id="stat-total">0</span>
+            <span class="stat__label">Total</span>
+          </div>
+          <div class="stat">
+            <span class="stat__value stat__value--done" id="stat-done">0</span>
+            <span class="stat__label">Completed</span>
+          </div>
+          <div class="stat">
+            <span class="stat__value stat__value--pending" id="stat-pending">0</span>
+            <span class="stat__label">Pending</span>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="progress-chart" width="120" height="120"></canvas>
+          <div class="chart-center">
+            <span id="chart-percent">0%</span>
+            <small>done</small>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <!-- Add task -->
+    <form class="add-form" id="add-form" autocomplete="off">
+      <input
+        class="add-form__input"
+        id="new-title"
+        type="text"
+        placeholder="Add a new task and press Enter…"
+        aria-label="New task title"
+        maxlength="200"
+      />
+      <button class="btn btn--primary" type="submit">
+        <span class="btn__plus">+</span> Add
+      </button>
+    </form>
+
+    <!-- Filters -->
+    <div class="filters" id="filters">
+      <button class="chip chip--active" data-filter="all">All</button>
+      <button class="chip" data-filter="active">Active</button>
+      <button class="chip" data-filter="done">Completed</button>
+    </div>
+
+    <!-- Task list -->
+    <main>
+      <ul class="task-list" id="task-list"></ul>
+      <div class="empty" id="empty-state" hidden>
+        <div class="empty__art">🗒️</div>
+        <p class="empty__title">Nothing here yet</p>
+        <p class="empty__hint">Add your first task above to get started.</p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      Built by <strong>StacklaneUAE</strong> · vanilla JS + Python stdlib
+    </footer>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

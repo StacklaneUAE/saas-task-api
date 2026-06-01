@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow — Stay on top of your day</title>
+  <meta
+    name="description"
+    content="TaskFlow is a beautifully simple task manager. Add, organize, and complete your tasks with delightful, fluid interactions."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/landing.css" />
+  <link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>"
+  />
+</head>
+<body>
+  <!-- animated background -->
+  <div class="bg" aria-hidden="true">
+    <span class="orb orb--1"></span>
+    <span class="orb orb--2"></span>
+    <span class="orb orb--3"></span>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="/">
+      <span class="nav__logo">✓</span>
+      <span>TaskFlow</span>
+    </a>
+    <nav class="nav__links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#stats">Why TaskFlow</a>
+    </nav>
+    <a class="btn btn--primary nav__cta" href="/app">Open App →</a>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__copy">
+        <span class="badge reveal" data-reveal>
+          <span class="badge__dot"></span> No sign-up · Runs locally
+        </span>
+        <h1 class="hero__title reveal" data-reveal data-reveal-delay="80">
+          Get things done,
+          <span class="grad-text">beautifully.</span>
+        </h1>
+        <p class="hero__sub reveal" data-reveal data-reveal-delay="160">
+          TaskFlow is a delightfully fast task manager with fluid animations, a
+          live progress chart, and zero clutter. Capture a thought, check it
+          off, watch your day take shape.
+        </p>
+        <div class="hero__actions reveal" data-reveal data-reveal-delay="240">
+          <a class="btn btn--primary btn--lg btn--glow" href="/app">
+            Start organizing <span class="btn__arrow">→</span>
+          </a>
+          <a class="btn btn--ghost btn--lg" href="#how">See how it works</a>
+        </div>
+        <div class="hero__meta reveal" data-reveal data-reveal-delay="320">
+          <div class="avatars">
+            <span style="--i: 0">🦊</span>
+            <span style="--i: 1">🐼</span>
+            <span style="--i: 2">🐧</span>
+            <span style="--i: 3">🦉</span>
+          </div>
+          <p>Loved by tidy minds everywhere</p>
+        </div>
+      </div>
+
+      <!-- Animated app mockup -->
+      <div class="hero__visual reveal" data-reveal data-reveal-delay="200">
+        <div class="mock" id="mock">
+          <div class="mock__glow"></div>
+          <div class="mock__header">
+            <div class="mock__brand">
+              <span class="mock__logo">✓</span> TaskFlow
+            </div>
+            <div class="mock__ring">
+              <svg viewBox="0 0 36 36">
+                <circle class="ring-bg" cx="18" cy="18" r="15.5" />
+                <circle class="ring-fg" cx="18" cy="18" r="15.5" />
+              </svg>
+              <span id="mock-pct">75%</span>
+            </div>
+          </div>
+          <ul class="mock__list">
+            <li class="mock__task is-done"><i></i> Design landing hero</li>
+            <li class="mock__task is-done"><i></i> Wire up Stripe checkout</li>
+            <li class="mock__task is-done"><i></i> Write onboarding emails</li>
+            <li class="mock__task"><i></i> Launch on Product Hunt</li>
+          </ul>
+          <div class="mock__add">
+            <span class="mock__cursor">Plan launch tweet<b>|</b></span>
+            <span class="mock__plus">+</span>
+          </div>
+        </div>
+        <span class="floaty floaty--a">✨</span>
+        <span class="floaty floaty--b">🚀</span>
+        <span class="floaty floaty--c">✅</span>
+      </div>
+    </section>
+
+    <!-- Stats band -->
+    <section class="stats-band" id="stats">
+      <div class="stat-pill reveal" data-reveal>
+        <span class="stat-pill__num" data-count="100" data-suffix="%">0</span>
+        <span class="stat-pill__label">Standard library</span>
+      </div>
+      <div class="stat-pill reveal" data-reveal data-reveal-delay="80">
+        <span class="stat-pill__num" data-count="0" data-suffix=" deps">0</span>
+        <span class="stat-pill__label">Dependencies to install</span>
+      </div>
+      <div class="stat-pill reveal" data-reveal data-reveal-delay="160">
+        <span class="stat-pill__num" data-count="6" data-suffix="">0</span>
+        <span class="stat-pill__label">REST endpoints</span>
+      </div>
+      <div class="stat-pill reveal" data-reveal data-reveal-delay="240">
+        <span class="stat-pill__num" data-count="60" data-suffix="fps">0</span>
+        <span class="stat-pill__label">Buttery animations</span>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+      <div class="section-head reveal" data-reveal>
+        <span class="eyebrow">Features</span>
+        <h2>Everything you need, nothing you don't</h2>
+        <p>A focused toolset that gets out of your way.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature reveal" data-reveal>
+          <div class="feature__icon">⚡</div>
+          <h3>Instant CRUD</h3>
+          <p>Add, edit, complete and delete tasks with zero lag — every action hits a real REST API under the hood.</p>
+        </article>
+        <article class="feature reveal" data-reveal data-reveal-delay="80">
+          <div class="feature__icon">📊</div>
+          <h3>Live progress</h3>
+          <p>A real-time donut chart and counters show exactly how much of your day is already done.</p>
+        </article>
+        <article class="feature reveal" data-reveal data-reveal-delay="160">
+          <div class="feature__icon">🎉</div>
+          <h3>Delightful motion</h3>
+          <p>Confetti on completion, smooth reveals, and micro-interactions that make checking things off fun.</p>
+        </article>
+        <article class="feature reveal" data-reveal data-reveal-delay="240">
+          <div class="feature__icon">🔍</div>
+          <h3>Smart filters</h3>
+          <p>Flip between All, Active and Completed instantly to focus on what matters right now.</p>
+        </article>
+        <article class="feature reveal" data-reveal data-reveal-delay="320">
+          <div class="feature__icon">📱</div>
+          <h3>Fully responsive</h3>
+          <p>Looks sharp from a 4K monitor down to your phone, with a layout that adapts gracefully.</p>
+        </article>
+        <article class="feature reveal" data-reveal data-reveal-delay="400">
+          <div class="feature__icon">🪶</div>
+          <h3>Featherweight</h3>
+          <p>Pure Python standard library plus vanilla JS. No frameworks, no build step, runs anywhere.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how" id="how">
+      <div class="section-head reveal" data-reveal>
+        <span class="eyebrow">How it works</span>
+        <h2>Up and running in three steps</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal" data-reveal>
+          <span class="step__num">1</span>
+          <h3>Run the server</h3>
+          <p>Start it with a single command — <code>python app.py</code>. No installs, no config.</p>
+        </div>
+        <div class="step reveal" data-reveal data-reveal-delay="120">
+          <span class="step__num">2</span>
+          <h3>Open the app</h3>
+          <p>Your browser opens to a clean board where you can capture tasks the moment they come to mind.</p>
+        </div>
+        <div class="step reveal" data-reveal data-reveal-delay="240">
+          <span class="step__num">3</span>
+          <h3>Check things off</h3>
+          <p>Complete tasks and watch your progress climb — with a little celebration each time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-final reveal" data-reveal>
+      <div class="cta-final__card">
+        <div class="cta-final__glow"></div>
+        <h2>Ready to clear your mind?</h2>
+        <p>Jump in — your first task is one click away.</p>
+        <a class="btn btn--primary btn--lg btn--glow" href="/app">
+          Launch TaskFlow <span class="btn__arrow">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Built by <strong>StacklaneUAE</strong></span>
+    <span>·</span>
+    <span>Vanilla JS + Python standard library</span>
+  </footer>
+
+  <script src="/landing.js"></script>
+</body>
+</html>
